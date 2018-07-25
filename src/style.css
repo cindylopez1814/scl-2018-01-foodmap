@@ -1,0 +1,25 @@
+body{
+  font-family: 'Montserrat', sans-serif;
+}
+.logo{
+  padding-left: 2%;
+  padding-top: 25%;
+}
+.firstScreen{
+  background-color: #2B464F;
+  height: 110vh;
+  display: none;
+}
+.navbar{
+  background-color: #2B464F;
+}
+h1{
+  color: #FFFFFF;
+  font-weight: bolder;
+  margin: 10%;
+  font-size: 20px;
+}
+.map{
+  max-width: 100%;
+  height: auto;
+}
