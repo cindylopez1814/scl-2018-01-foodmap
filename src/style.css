@@ -19,7 +19,7 @@ h1{
   margin: 10%;
   font-size: 20px;
 }
-.map{
-  max-width: 100%;
-  height: auto;
+#maps{
+  width: 450px; 
+  height: 350px;
 }

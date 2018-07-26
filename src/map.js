@@ -2,8 +2,8 @@ let map;
 let infowindow;
 
 function initMap() {
-  // Creamos un mapa
-  navigator.geolocation.getCurrentPosition((pos) => {
+  // Creamos un mapa con las coordenadas actuales
+  navigator.geolocation.getCurrentPosition(function (pos) {
 
     lat = pos.coords.latitude;
     lon = pos.coords.longitude;
@@ -12,7 +12,7 @@ function initMap() {
 
     let mapOptions = {
       center: myLatlng,
-      zoom: 15,
+      zoom: 14,
       mapTypeId: google.maps.MapTypeId.MAP
     };
 
@@ -25,19 +25,23 @@ function initMap() {
     let request = {
       location: myLatlng,
       radius: 5000,
-      types: ['restaurant', 'cafe', 'bar', 'meal_takeaway']
+      types: ['restaurant', 'bar', 'cafe'],
+      fields: ['photos', 'formatted_address', 'name', 'rating', 'opening_hours', 'geometry'],
     };
 
     // Creamos el servicio PlaceService y enviamos la petición.
     let service = new google.maps.places.PlacesService(map);
 
-    service.nearbySearch(request, (results, status) => {
+    service.nearbySearch(request, function (results, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < results.length; i++) {
+        for (let i = 0; i < results.length; i++) {
           crearMarcador(results[i]);
         }
       }
     });
+
+    service.textSearch(request, callback);
+
   });
 }
 
@@ -49,7 +53,7 @@ function crearMarcador(place) {
   });
 
   // Asignamos el evento click del marcador
-  google.maps.event.addListener(marker, 'click', () => {
+  google.maps.event.addListener(marker, 'click', function () {
     infowindow.setContent(place.name);
     infowindow.open(map, this);
   });
