@@ -1,6 +1,8 @@
 body{
   font-family: 'Montserrat', sans-serif;
   background-color: #2B464F;
+  color: #FFFFFF;
+  height: auto;
 }
 #firstScreen{
   background-color: #2B464F;
@@ -18,7 +20,7 @@ body{
   to {opacity: 1;}
 }
 #second{
-  height: 110vh;
+  min-height: 110vh;
   width: 100vw;
   text-align: center;
   padding: 0%;
@@ -30,19 +32,11 @@ header{
 #logo{
   margin-top: 3%;
 }
-h1{
-  display: inline;
-  color: #FFFFFF;
-  font-weight: bolder;
-  font-size: 20px;
-  margin-right: 20%;
-  padding-top: 5%;
-}
 #searchContainer{
   padding: 5%;
+  height: inherit;
 }
 h3{
-  color: #FFFFFF;
   font-size: 20px;
   margin: 2%;
 }
@@ -53,6 +47,9 @@ h3{
   width: auto;
   height: 35vh;
   margin-top: 10px;
+}
+#containerInfo{
+  height: auto;
 }
 
 @media (min-width: 768px) {

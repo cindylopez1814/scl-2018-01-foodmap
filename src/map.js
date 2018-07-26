@@ -14,7 +14,7 @@ function initMap() {
 
     let mapOptions = {
       center: myLatlng,
-      zoom: 11,
+      zoom: 14,
       mapTypeId: google.maps.MapTypeId.MAP
     };
 
@@ -49,7 +49,7 @@ function search() {
     const myLatlng = new google.maps.LatLng(lat, long);
     const mapOptions = {
       center: myLatlng,
-      zoom: 11,
+      zoom: 14,
       mapTypeId: google.maps.MapTypeId.MAP
     };
     map = new google.maps.Map(document.getElementById('maps'), mapOptions);
@@ -60,9 +60,11 @@ function search() {
     service.textSearch({
       location: myLatlng,
       radius: 5000,
-      query: input
+      query: input,
+      types: ['restaurant', 'bar', 'cafe']
     }, function(results, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
+        containerInfo.innerHTML = '';
         for (var i = 0; i < results.length; i++) {
           createModal(results[i]);
         }
@@ -86,5 +88,18 @@ function createMarket(place) {
 }
 
 function createModal(place) {
-  console.log(place.name);
+  console.log(place);
+
+  let marker = new google.maps.Marker({
+    map: map,
+    position: place.geometry.location
+  });
+
+  // Asignamos el evento click del marcador
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + place.formatted_address + '<br><strong>Califición: </strong>' + place.rating + '</div>');
+    infowindow.open(map, this);
+  });
+
+  containerInfo.innerHTML += place.name + '<br>';
 }
