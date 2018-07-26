@@ -101,5 +101,23 @@ function createModal(place) {
     infowindow.open(map, this);
   });
 
-  containerInfo.innerHTML += place.name + '<br>';
+  containerInfo.innerHTML += `
+  <div class="names">
+    <p>${place.name.toUpperCase()}</p>
+    <button class="button modal-button" data-target="a${place.id}"> 
+      <span class="icon">
+        <i class="fas fa-utensils"></i>
+      </span>
+    </button>
+  </div>
+  <div id="a${place.id}" class="modal modal-fx-fadeInScale">
+    <div class="modal-background"></div>
+       <div class="modal-content">${place.name}
+        <p>Direccion: ${place.formatted_address}</p>
+        <p>${place.photos[0].html_attributions[0]}</p>
+        <p>Calificacion de Usuarios: ${place.rating}</p>
+      <button class="modal-close is-large" aria-label="close"></button>
+    </div>
+  </div>
+  `;
 }
