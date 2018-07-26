@@ -42,6 +42,14 @@ h3{
 }
 #search{
   text-align: center;
+  width: 83%;
+}
+#btnSearch{
+  display: inline;
+  background-color: #FFFFFF;
+}
+.icon{
+  color: #2B464F;
 }
 #maps{
   width: auto;
@@ -49,7 +57,9 @@ h3{
   margin-top: 10px;
 }
 #containerInfo{
-  height: auto;
+  height: 30vh;
+  width: auto;
+  overflow: auto;
 }
 
 @media (min-width: 768px) {
