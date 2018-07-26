@@ -1,3 +1,6 @@
+
+setTimeout(initMap(), 5000);
+
 let map;
 let infowindow;
 
@@ -25,27 +28,35 @@ function initMap() {
     let request = {
       location: myLatlng,
       radius: 5000,
-      types: ['restaurant', 'bar', 'cafe'],
-      fields: ['photos', 'formatted_address', 'name', 'rating', 'opening_hours', 'geometry'],
+      types: ['restaurant', 'bar', 'cafe']
     };
 
     // Creamos el servicio PlaceService y enviamos la petición.
     let service = new google.maps.places.PlacesService(map);
-
-    service.nearbySearch(request, function (results, status) {
+    let input = document.getElementById('search').value;
+    service.textSearch({
+      location: myLatlng,
+      radius: 5000,
+      query: input
+    }, function(results, status) {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        for (let i = 0; i < results.length; i++) {
-          crearMarcador(results[i]);
+        for (var i = 0; i < results.length; i++) {
+          createModal(results[i]);
         }
       }
     });
-
-    service.textSearch(request, callback);
-
+    
+    service.nearbySearch(request, function (results, status) {
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        for (let i = 0; i < results.length; i++) {
+          createMarket(results[i]);
+        }
+      }
+    });
   });
-}
+};
 
-function crearMarcador(place) {
+function createMarket(place) {
   // Creamos un marcador
   let marker = new google.maps.Marker({
     map: map,
@@ -54,7 +65,11 @@ function crearMarcador(place) {
 
   // Asignamos el evento click del marcador
   google.maps.event.addListener(marker, 'click', function () {
-    infowindow.setContent(place.name);
+    infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + place.vicinity + '</div>');
     infowindow.open(map, this);
   });
+}
+
+function createModal(place) {
+  console.log(place.name);
 }

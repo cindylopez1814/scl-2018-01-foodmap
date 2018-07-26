@@ -13,24 +13,26 @@
 </head>
 
 <body>
-  <section class="section  firstScreen">
-    <figure class="image logo">
-      <img src="img/foodmap.png" alt="logo">
-    </figure>
-  </section>
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <a class="navbar-item">
-        <img src="img/foodmap.png" alt="foodmap" width="64" height="28">
-      </a>
-      <div class="navbar-item">
-        <h1>FoodMap</h1>
+  <section class="hero is-fullheight" id="firstScreen">
+    <div class="hero-body">
+      <div class="container">
+        <img src="img/foodmap.png" alt="logo" class="container" id="logoInit">
       </div>
     </div>
-  </nav>
-  <section class="section">
-    <input type="text" id="search" placeholder="¿Qué quieres comer hoy?">
-    <div id="maps"></div>
+  </section>
+
+  <section class="column is-half is-offset-one-quarter" id="second">
+    <header class="hero">
+      <div class="container">
+        <img src="img/foodmap.png" id="logo" alt="foodmap" width="96" height="64">
+      </div>
+    </header>
+
+    <div class="container" id="searchContainer">
+      <h3>¿Qué quieres comer hoy?</h3>
+      <input type="text" id="search" placeholder="Buscar" class="input">
+      <div id="maps"></div>
+    </div>
   </section>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnIAjhfUOXWT_S4GA_G19Q7ju2UG5Z1uA&libraries=places"></script>
   </script>
