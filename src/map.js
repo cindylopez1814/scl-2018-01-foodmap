@@ -6,16 +6,15 @@ let infowindow;
 
 function initMap() {
   // Creamos un mapa con las coordenadas actuales
-  navigator.geolocation.getCurrentPosition(function (pos) {
+  navigator.geolocation.getCurrentPosition(function(position) {
+    latitude = position.coords.latitude;
+    longitude = position.coords.longitude;
 
-    lat = pos.coords.latitude;
-    lon = pos.coords.longitude;
-
-    let myLatlng = new google.maps.LatLng(lat, lon);
+    let myLatlng = new google.maps.LatLng(latitude, longitude);
 
     let mapOptions = {
       center: myLatlng,
-      zoom: 14,
+      zoom: 11,
       mapTypeId: google.maps.MapTypeId.MAP
     };
 
@@ -30,8 +29,32 @@ function initMap() {
       radius: 5000,
       types: ['restaurant', 'bar', 'cafe']
     };
-
+    let service = new google.maps.places.PlacesService(map);
     // Creamos el servicio PlaceService y enviamos la petición.
+    service.nearbySearch(request, function(results, status) {
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        for (let i = 0; i < results.length; i++) {
+          createMarket(results[i]);
+        }
+      }
+    });
+  });
+};
+
+function search() {
+  navigator.geolocation.getCurrentPosition(function(position) {
+    lat = position.coords.latitude;
+    long = position.coords.longitude;
+
+    const myLatlng = new google.maps.LatLng(lat, long);
+    const mapOptions = {
+      center: myLatlng,
+      zoom: 11,
+      mapTypeId: google.maps.MapTypeId.MAP
+    };
+    map = new google.maps.Map(document.getElementById('maps'), mapOptions);
+    infowindow = new google.maps.InfoWindow();
+
     let service = new google.maps.places.PlacesService(map);
     let input = document.getElementById('search').value;
     service.textSearch({
@@ -45,16 +68,8 @@ function initMap() {
         }
       }
     });
-    
-    service.nearbySearch(request, function (results, status) {
-      if (status === google.maps.places.PlacesServiceStatus.OK) {
-        for (let i = 0; i < results.length; i++) {
-          createMarket(results[i]);
-        }
-      }
-    });
   });
-};
+}
 
 function createMarket(place) {
   // Creamos un marcador
@@ -64,7 +79,7 @@ function createMarket(place) {
   });
 
   // Asignamos el evento click del marcador
-  google.maps.event.addListener(marker, 'click', function () {
+  google.maps.event.addListener(marker, 'click', function() {
     infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + place.vicinity + '</div>');
     infowindow.open(map, this);
   });
